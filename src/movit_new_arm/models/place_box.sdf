@@ -1,0 +1,192 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <model name="place_box">
+    <static>true</static>
+    <self_collide>false</self_collide>
+    <pose>0 0 0 0 0 0</pose>
+    <link name="base_plate">
+      <pose>0 0 {0.005/2} 0 0 0</pose>
+      <inertial>
+        <mass>0.15</mass>
+        <inertia>
+          <ixx>0.0005003125</ixx>
+          <iyy>0.0011253125</iyy>
+          <izz>0.001625</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      <collision name="base_collision">
+        <geometry>
+          <box>
+            <size>0.3 0.2 0.005</size>
+          </box>
+        </geometry>
+      </collision>
+      <visual name="base_visual">
+        <geometry>
+          <box>
+            <size>0.3 0.2 0.005</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0.8 0.5 0.2 1</ambient>
+          <diffuse>0.8 0.5 0.2 1</diffuse>
+          <specular>0.1 0.1 0.1 1</specular>
+        </material>
+      </visual>
+    </link>
+
+    <link name="wall_x_pos">
+      <pose>0.1475 0 0.0525 0 0 0</pose>
+      <inertial>
+        <mass>0.05</mass> <inertia>
+          <ixx>0.0003541667</ixx>  <iyy>0.0000104167</iyy>
+          <izz>0.00034375</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      <collision name="wall_x_pos_collision">
+        <geometry>
+          <box>
+            <size>0.005 0.2 0.1</size> </box>
+        </geometry>
+      </collision>
+      <visual name="wall_x_pos_visual">
+        <geometry>
+          <box>
+            <size>0.005 0.2 0.1</size> </box>
+        </geometry>
+        <material>
+          <ambient>0.8 0.5 0.2 1</ambient>
+          <diffuse>0.8 0.5 0.2 1</diffuse>
+          <specular>0.1 0.1 0.1 1</specular>
+        </material>
+      </visual>
+    </link>
+
+    <link name="wall_x_neg">
+      <pose>-0.1475 0 0.0525 0 0 0</pose>
+      <inertial>
+        <mass>0.05</mass>
+        <inertia>
+          <ixx>0.0003541667</ixx>
+          <iyy>0.0000104167</iyy>
+          <izz>0.00034375</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      <collision name="wall_x_neg_collision">
+        <geometry>
+          <box>
+            <size>0.005 0.2 0.1</size> </box>
+        </geometry>
+      </collision>
+      <visual name="wall_x_neg_visual">
+        <geometry>
+          <box>
+            <size>0.005 0.2 0.1</size> </box>
+        </geometry>
+        <material>
+          <ambient>0.8 0.5 0.2 1</ambient>
+          <diffuse>0.8 0.5 0.2 1</diffuse>
+          <specular>0.1 0.1 0.1 1</specular>
+        </material>
+      </visual>
+    </link>
+
+    <link name="wall_y_pos">
+      <pose>0 0.0975 0.0525 0 0 0</pose>
+      <inertial>
+        <mass>0.0725</mass> <inertia>
+          <ixx>0.0000152864</ixx> <iyy>0.00104840625</iyy>
+          <izz>0.0010181354</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      <collision name="wall_y_pos_collision">
+        <geometry>
+          <box>
+            <size>0.29 0.005 0.1</size> </box>
+        </geometry>
+      </collision>
+      <visual name="wall_y_pos_visual">
+        <geometry>
+          <box>
+            <size>0.29 0.005 0.1</size> </box>
+        </geometry>
+        <material>
+          <ambient>0.8 0.5 0.2 1</ambient>
+          <diffuse>0.8 0.5 0.2 1</diffuse>
+          <specular>0.1 0.1 0.1 1</specular>
+        </material>
+      </visual>
+    </link>
+
+    <link name="wall_y_neg">
+      <pose>0 -0.0975 0.0525 0 0 0</pose>
+      <inertial>
+        <mass>0.0725</mass>
+        <inertia>
+          <ixx>0.0000152864</ixx>
+          <iyy>0.00104840625</iyy>
+          <izz>0.0010181354</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
+      </inertial>
+      <collision name="wall_y_neg_collision">
+        <geometry>
+          <box>
+            <size>0.29 0.005 0.1</size> </box>
+        </geometry>
+      </collision>
+      <visual name="wall_y_neg_visual">
+        <geometry>
+          <box>
+            <size>0.29 0.005 0.1</size> </box>
+        </geometry>
+        <material>
+          <ambient>0.8 0.5 0.2 1</ambient>
+          <diffuse>0.8 0.5 0.2 1</diffuse>
+          <specular>0.1 0.1 0.1 1</specular>
+        </material>
+      </visual>
+    </link>
+
+    <joint name="base_to_wall_x_pos_joint" type="fixed">
+      <parent>base_plate</parent>
+      <child>wall_x_pos</child>
+      <pose>0 0 0 0 0 0</pose>
+    </joint>
+    <joint name="base_to_wall_x_neg_joint" type="fixed">
+      <parent>base_plate</parent>
+      <child>wall_x_neg</child>
+      <pose>0 0 0 0 0 0</pose>
+    </joint>
+    <joint name="base_to_wall_y_pos_joint" type="fixed">
+      <parent>base_plate</parent>
+      <child>wall_y_pos</child>
+      <pose>0 0 0 0 0 0</pose>
+    </joint>
+    <joint name="base_to_wall_y_neg_joint" type="fixed">
+      <parent>base_plate</parent>
+      <child>wall_y_neg</child>
+      <pose>0 0 0 0 0 0</pose>
+    </joint>
+    <joint name="fixed_to_world_joint" type="fixed">
+      <parent>world</parent>
+      <child>base_plate</child>
+      <pose>0 0 0.0025 0 0 0</pose>
+    </joint>
+
+  </model>
+</sdf>

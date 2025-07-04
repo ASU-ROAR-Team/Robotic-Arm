@@ -1,0 +1,9 @@
+build/
+devel/
+install/
+log/
+*.pyc
+*.swp
+*.swo
+*.bak
+.vscode/
