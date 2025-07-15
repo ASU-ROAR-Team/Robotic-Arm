@@ -1,7 +1,7 @@
 build/
 devel/
 install/
-log/
+logs/
 *.pyc
 *.swp
 *.swo
