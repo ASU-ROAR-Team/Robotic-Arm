@@ -29,14 +29,12 @@ rover_arm_controller:
 #Controller to control end effector joints
 hand_ee_controller:
   type: "position_controllers/JointTrajectoryController"
-  joints: [joint_ree, joint_lee]
+  joints: [joint_ree]
   # You might also need to add tolerances for the hand_ee_controller if you encounter issues with gripper movements
   state_tolerances:
     joint_ree: 0.01
-    joint_lee: 0.01
   goal_tolerances:
     joint_ree: 0.01
-    joint_lee: 0.01
 
 #Controller to continuously publish joint states/positions
 joint_state_controller:
