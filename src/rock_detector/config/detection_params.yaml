@@ -1,0 +1,30 @@
+# =======================================================
+# Parameters for the Python Rock Detector Node
+# =======================================================
+
+# --- Input Topics ---
+# These must match the topics published by your camera driver (ZED, RealSense, or Gazebo).
+image_topic: "/camera/color/image_raw"
+depth_topic: "/camera/depth/image_rect_raw" # Use the rectified depth image
+camera_info_topic: "/camera/color/camera_info"
+
+# --- YOLOv8 Model Configuration ---
+# Provide the absolute path to your trained YOLOv8 model.
+model_path: "/path/to/your/yolov8_rocks.pt"
+confidence_threshold: 0.65  # Minimum confidence to consider a detection.
+nms_threshold: 0.45         # Non-Maximum Suppression threshold.
+
+# --- Detection & Targeting ---
+# The exact name of the object class you want to target (e.g., 'rock').
+target_class_name: "rock"
+
+# --- TF Broadcast Configuration ---
+# This MUST be the frame ID of the camera's optical center, where the 3D point is calculated.
+# - ZED2i:       "zed2i_left_camera_optical_frame"
+# - RealSense:   "camera_depth_optical_frame"
+# - Gazebo:      Check your URDF, often "camera_link_optical" or similar.
+camera_optical_frame_id: "camera_depth_optical_frame"
+
+# The base name for the broadcasted TF frame. It will be suffixed with an ID
+# (e.g., "target_rock_1", "target_rock_2").
+target_frame_base_name: "target_rock"

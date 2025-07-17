@@ -1,0 +1,19 @@
+<launch>
+    <!-- 
+      Launch file for the Python Rock Detector node.
+      Loads parameters and starts the detector.
+    -->
+
+    <!-- Load all parameters from our YAML configuration file into the node's private namespace -->
+    <rosparam command="load" file="$(find rock_detector)/config/detection_params.yaml" />
+
+    <!-- Start the rock detector Python node -->
+    <node name="rock_detector_node" 
+          pkg="rock_detector" 
+          type="rock_detector_node.py" 
+          output="screen">
+        <!-- You can also override specific parameters here if needed for a certain launch -->
+        <!-- <param name="confidence_threshold" value="0.8"/> -->
+    </node>
+
+</launch>```
