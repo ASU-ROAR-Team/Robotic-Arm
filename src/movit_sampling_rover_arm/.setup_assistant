@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: sampling_rover_with_arm_urdf
+    relative_path: urdf/sampling_rover_with_arm_urdf.urdf
+    xacro_args: ""
+  SRDF:
+    relative_path: config/sampling_rover_with_arm_urdf.srdf
+  CONFIG:
+    author_name: Youssef Elgharably
+    author_email: youssefelgharablyyy@gmail.com
+    generated_timestamp: 1753052824
