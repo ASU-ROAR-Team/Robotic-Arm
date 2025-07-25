@@ -635,7 +635,6 @@
       <selfCollide>true</selfCollide>
   </gazebo>
 
-<!--  
   <gazebo>
     <plugin name="gazebo_grasp_fix" filename="libgazebo_grasp_fix.so">
       <arm>
@@ -653,6 +652,6 @@
       <contact_topic>__default_topic__</contact_topic>
     </plugin> 
   </gazebo>
-  -->
+
 
 </robot>
