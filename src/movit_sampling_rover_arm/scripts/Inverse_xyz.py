@@ -47,16 +47,23 @@ def move_arm_to_sequential_xyz_flexible_orientation():
 
     # Define sequential XYZ points (no RPY needed here anymore)
     target_xyz_points = [
-        (0, 0.82, 0.09), # Example Point 1 (x, y, z)
-        (0.25, 0.78, 0.09),
-        (-0.28, 0.9, 0.09),
-        (-0.001682, 0.823266, 0.095203), # Example Point 2
-        ( -0.0423 , 0.706 , 0.883 ),
-        (0.133 , 0.625, 0.811),
-        ( 0.169, 0.97 ,0.683 )
+        (0, 0.82, 0.12), # Example Point 1 (x, y, z)
+        (0.25, 0.78, 0.12),
+        (-0.28, 0.9, 0.12),
     ]
-
+    
     rospy.loginfo("Defined %d sequential XYZ points (orientation will be flexible).", len(target_xyz_points))
+    
+    # Ensure arm returns to a known 'pose0' at start of script
+    rospy.loginfo("\nAttempting to move to pose0 (home/start position).")
+    move_group_arm.set_named_target("pose0") # Make sure "pose0" is defined in your SRDF or MoveIt config
+    success_home_start = move_group_arm.go(wait=True)
+    if success_home_start:
+        rospy.loginfo("Successfully moved to pose0.")
+    else:
+        rospy.logwarn("Approximately moved to Pose0 or failed to reach. Continuing anyway.")
+        move_group_arm.stop() # Stop any residual motion
+
 
     # --- Execute the sequence of movements ---
     for i, (x, y, z) in enumerate(target_xyz_points):
@@ -64,18 +71,17 @@ def move_arm_to_sequential_xyz_flexible_orientation():
             rospy.loginfo("ROS Shutdown detected. Aborting sequence.")
             break
         
-        # Ensure arm returns to a known 'pose0' before each new target
-        # This is a good practice for sequential moves
+        # move to pre_pick pose before each target
         rospy.loginfo("\nAttempting to move to pose0 (home/start position).")
-        move_group_arm.set_named_target("pose0") # Make sure "pose0" is defined in your SRDF or MoveIt config
-        success_home = move_group_arm.go(wait=True)
-        if success_home:
+        move_group_arm.set_named_target("pre_pick") # Make sure "pre_pick" is defined in your SRDF or MoveIt config
+        success_pre_pick = move_group_arm.go(wait=True)
+        if success_pre_pick:
             rospy.loginfo("Successfully moved to pose0.")
         else:
             rospy.logwarn("Approximately moved to Pose0 or failed to reach. Continuing anyway.")
             move_group_arm.stop() # Stop any residual motion
 
-        # Open gripper before moving to a new target (e.g., if you're about to grasp something)
+        # Open gripper before moving to a new target to grasp the rocks
         rospy.loginfo("Opening gripper.")
         move_group_ee.set_named_target("ee_open") # Make sure "ee_open" is defined for your gripper group
         success_ee_open = move_group_ee.go(wait=True)
@@ -130,6 +136,7 @@ def move_arm_to_sequential_xyz_flexible_orientation():
             move_group_arm.stop()
             move_group_arm.clear_pose_targets()
 
+
         # Close gripper after reaching a target (e.g., after "grasping" something at the location)
         rospy.loginfo("Closing gripper.")
         move_group_ee.set_named_target("ee_close") # Make sure "ee_close" is defined for your gripper group
@@ -141,6 +148,37 @@ def move_arm_to_sequential_xyz_flexible_orientation():
         move_group_ee.stop()
         rospy.sleep(1.0) # ROS-aware sleep
 
+
+        rospy.loginfo("\nAttempting to move to place rock pose.")
+        move_group_arm.set_named_target("place_rock") # Make sure "place_rock" is defined in your SRDF 
+        success_place = move_group_arm.go(wait=True)
+        if success_place:
+            rospy.loginfo("Successfully moved to place rock.")
+        else:
+            rospy.logwarn("Approximately moved to place rock.")
+            move_group_arm.stop() # Stop any residual motion
+
+        # Open gripper to drop the rock
+        rospy.loginfo("Opening gripper.")
+        move_group_ee.set_named_target("ee_open") 
+        success_ee_open = move_group_ee.go(wait=True)
+        if success_ee_open:
+            rospy.loginfo("Gripper opened.")
+        else:
+            rospy.logwarn("Failed to open gripper.")
+        move_group_ee.stop()
+        rospy.sleep(1.0) 
+
+        # Close gripper after dropping the rock
+        rospy.loginfo("Closing gripper.")
+        move_group_ee.set_named_target("ee_close") 
+        success_ee_close = move_group_ee.go(wait=True)
+        if success_ee_close:
+            rospy.loginfo("Gripper closed.")
+        else:
+            rospy.logwarn("Failed to close gripper.")
+        move_group_ee.stop()
+        rospy.sleep(1.0) 
 
     # After the loop, return to a predefined 'pose0' one last time for safety/reset
     if not rospy.is_shutdown():
