@@ -55,11 +55,18 @@
         <joint name="joint_5" value="1.3865"/>
     </group_state>
     <group_state name="pick_pose" group="Arm_group">
-        <joint name="joint_1" value="-0.3914"/>
-        <joint name="joint_2" value="1.912"/>
+        <joint name="joint_1" value="-0.46"/>
+        <joint name="joint_2" value="1.94"/>
         <joint name="joint_3" value="1.8785"/>
-        <joint name="joint_4" value="0.0335"/>
-        <joint name="joint_5" value="-1.1517"/>
+        <joint name="joint_4" value="0.0"/>
+        <joint name="joint_5" value="-1.132"/>
+    </group_state>
+    <group_state name="pre_pick" group="Arm_group">
+        <joint name="joint_1" value="0"/>
+        <joint name="joint_2" value="0.9594"/>
+        <joint name="joint_3" value="1.0292"/>
+        <joint name="joint_4" value="0.0523"/>
+        <joint name="joint_5" value="1.6747"/>
     </group_state>
     <!--END EFFECTOR: Purpose: Represent information about an end effector.-->
     <end_effector name="gripper" parent_link="link_5" group="EE_group"/>
