@@ -48,6 +48,8 @@ def move_arm_to_sequential_xyz_flexible_orientation():
     # Define sequential XYZ points (no RPY needed here anymore)
     target_xyz_points = [
         (0, 0.82, 0.09), # Example Point 1 (x, y, z)
+        (0.25, 0.78, 0.09),
+        (-0.28, 0.9, 0.09),
         (-0.001682, 0.823266, 0.095203), # Example Point 2
         ( -0.0423 , 0.706 , 0.883 ),
         (0.133 , 0.625, 0.811),
