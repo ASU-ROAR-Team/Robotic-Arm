@@ -47,9 +47,9 @@ def move_arm_to_sequential_xyz_flexible_orientation():
 
     # Define sequential XYZ points (no RPY needed here anymore)
     target_xyz_points = [
-        (0, 0.82, 0.12), # Example Point 1 (x, y, z)
-        (0.25, 0.78, 0.12),
-        (-0.28, 0.9, 0.12),
+        (0, 0.82, 0.12), # Example Point to pick rock 1
+        (0.25, 0.78, 0.12), # Example Point to pick rock 2
+        (-0.28, 0.9, 0.12), # Example Point to pick rock 3
     ]
     
     rospy.loginfo("Defined %d sequential XYZ points (orientation will be flexible).", len(target_xyz_points))
