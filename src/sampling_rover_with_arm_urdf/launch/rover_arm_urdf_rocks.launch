@@ -17,26 +17,26 @@
 	<!--spawn model-->
 	<node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-x $(arg arg_x) -y $(arg arg_y) -z $(arg arg_z) -Y $(arg arg_Y) -param robot_description -urdf -model sampling_rover_with_arm_urdf -J joint_1 0.0 -J joint_2 0.0 -J joint_3 0.0 -J joint_4 0.0 -J joint_5 0.0 -J joint_ree 0.0 -J joint_lee 0.0" />
 
-    <!-- Spawn Rock 1 -->
-       <node name="spawn_rock1" pkg="gazebo_ros" type="spawn_model"
-          args="-file $(find my_gazebo_models)/sampling_rocks/rock1/model.sdf -sdf
-                 -x 0 -y 0.8 -z 0.0
-                 -R 0.0 -P 0.0 -Y 0.0
-                 -model rock1" />
+   <!-- Spawn Rock 1 -->
+   <node name="spawn_rock1" pkg="gazebo_ros" type="spawn_model"
+      args="-file $(find my_gazebo_models)/sampling_rocks/rock1/model.sdf -sdf
+            -x 0 -y 0.8 -z 0.0
+            -R 0.0 -P 0.0 -Y 0.0
+            -model rock1" />
 
-       <!-- Spawn Rock 2 -->
-       <node name="spawn_rock2" pkg="gazebo_ros" type="spawn_model"
-          args="-file $(find my_gazebo_models)/sampling_rocks/rock2/model.sdf -sdf
-                 -x 0.25 -y 0.8 -z 0.0
-                 -R 0.0 -P 0.0 -Y 0.0
-                 -model rock2" />                 
+   <!-- Spawn Rock 2 -->
+   <node name="spawn_rock2" pkg="gazebo_ros" type="spawn_model"
+      args="-file $(find my_gazebo_models)/sampling_rocks/rock2/model.sdf -sdf
+            -x 0.25 -y 0.8 -z 0.0
+            -R 0.0 -P 0.0 -Y 0.0
+            -model rock2" />                 
 
-       <!-- Spawn Rock 3 -->
-       <node name="spawn_rock3" pkg="gazebo_ros" type="spawn_model"
-          args="-file $(find my_gazebo_models)/sampling_rocks/rock3/model.sdf -sdf
-                 -x -0.13 -y 0.8 -z 0.0
-                 -R 0.0 -P 0.0 -Y 0.0
-                 -model rock3" />
+   <!-- Spawn Rock 3 -->
+   <node name="spawn_rock3" pkg="gazebo_ros" type="spawn_model"
+      args="-file $(find my_gazebo_models)/sampling_rocks/rock3/model.sdf -sdf
+            -x -0.13 -y 0.8 -z 0.0
+            -R 0.0 -P 0.0 -Y 0.0
+            -model rock3" />
 
 	<!--Load and launch the joint trajectory controller-->
 	<rosparam file ="$(find sampling_rover_with_arm_urdf)/config/joint_trajectory_controller.yaml" command="load"/>
