@@ -7,7 +7,7 @@ import time
 # No need for math, quaternion_from_euler, euler_from_quaternion as we don't care about specific orientation input
 from geometry_msgs.msg import Pose, PoseStamped, Quaternion # Keep these types for general pose info
 
-def move_arm_to_sequential_xyz_flexible_orientation():
+def move_arm_to_sequential_xyz():
     """
     Initializes MoveIt! and moves the robotic arm's end-effector (link_5)
     through a sequence of XYZ target positions. The orientation of the
@@ -17,7 +17,7 @@ def move_arm_to_sequential_xyz_flexible_orientation():
     """
     # 1. Initialize ROS and MoveIt! Commander
     moveit_commander.roscpp_initialize(sys.argv)
-    rospy.init_node('move_arm_xyz_flexible_orientation', anonymous=True)
+    rospy.init_node('move_arm_xyz', anonymous=True)
 
     rospy.loginfo("Initializing MoveIt! Commander...")
 
@@ -45,7 +45,7 @@ def move_arm_to_sequential_xyz_flexible_orientation():
     move_group_arm.set_goal_tolerance(custom_joint_tolerance)
     rospy.loginfo(f"Set joint goal tolerance to: {custom_joint_tolerance} radians.")
 
-    # Define sequential XYZ points (no RPY needed here anymore)
+    # Define sequential XYZ points 
     target_xyz_points = [
         (0, 0.82, 0.09), # Example Point to pick rock 1
         (0.25 , 0.8 , 0.09 ), # Example Point to pick rock 2
@@ -72,13 +72,13 @@ def move_arm_to_sequential_xyz_flexible_orientation():
             break
         
         # move to pre_pick pose before each target
-        rospy.loginfo("\nAttempting to move to pose0 (home/start position).")
+        rospy.loginfo("\nAttempting to move to pre pick position.")
         move_group_arm.set_named_target("pre_pick") # Make sure "pre_pick" is defined in your SRDF or MoveIt config
         success_pre_pick = move_group_arm.go(wait=True)
         if success_pre_pick:
-            rospy.loginfo("Successfully moved to pose0.")
+            rospy.loginfo("Successfully moved to pre pose.")
         else:
-            rospy.logwarn("Approximately moved to Pose0 or failed to reach. Continuing anyway.")
+            rospy.logwarn("Approximately moved to Pre pose or failed to reach. Continuing anyway.")
             move_group_arm.stop() # Stop any residual motion
 
         # Open gripper before moving to a new target to grasp the rocks
@@ -114,6 +114,10 @@ def move_arm_to_sequential_xyz_flexible_orientation():
             continue
         else:
             rospy.loginfo("Planning successful. Executing trajectory...")
+            # Access the trajectory's waypoints
+            original_points = plan_trajectory.joint_trajectory.points
+            rospy.loginfo("Original trajectory has %d waypoints.", len(original_points))
+            # Execute the planned trajectory
             execute_success = move_group_arm.execute(plan_trajectory, wait=True)
 
             if rospy.is_shutdown():
@@ -188,7 +192,7 @@ def move_arm_to_sequential_xyz_flexible_orientation():
         if success_final_home:
             rospy.loginfo("Successfully returned to pose0.")
         else:
-            rospy.logwarn("Approximately returned to Pose0 or failed. Arm might not be in exact home position.")
+            rospy.logwarn("Approximately returned to Pose0 or failed.")
             move_group_arm.stop()
     else:
         rospy.loginfo("Skipping final return to pose0 due to shutdown.")
@@ -205,7 +209,7 @@ def move_arm_to_sequential_xyz_flexible_orientation():
 if __name__ == '__main__':
     try:
         # Ensure Gazebo and Rviz with MoveIt are already launched
-        move_arm_to_sequential_xyz_flexible_orientation()
+        move_arm_to_sequential_xyz()
     except rospy.ROSInterruptException:
         rospy.loginfo("ROS Interrupt received. Shutting down node.")
     except Exception as e:
