@@ -1,0 +1,52 @@
+<launch>
+    
+    <include
+    file="$(find gazebo_ros)/launch/empty_world.launch" />
+    
+    <node
+    name="tf_footprint_base"
+    pkg="tf"
+    type="static_transform_publisher"
+    args="0 0 0 0 0 0 base_link base_footprint 40" />
+    <!-- Spawn the robot in gazebo -->
+    <node
+    name="spawn_model"
+    pkg="gazebo_ros"
+    type="spawn_model"
+    args="-file $(find sampling_rover_with_arm_urdf)/urdf/sampling_rover_with_arm_urdf.urdf -urdf -model sampling_rover_with_arm_urdf"
+    output="screen" />
+   
+
+  <arg
+    name="model" />
+  <param
+    name="robot_description"
+    textfile="$(find sampling_rover_with_arm_urdf)/urdf/sampling_rover_with_arm_urdf.urdf" />
+  <node
+    name="joint_state_publisher_gui"
+    pkg="joint_state_publisher_gui"
+    type="joint_state_publisher_gui" />
+  <node
+    name="robot_state_publisher"
+    pkg="robot_state_publisher"
+    type="robot_state_publisher" />
+  <node
+    name="rviz"
+    pkg="rviz"
+    type="rviz"
+    args="-d $(find sampling_rover_with_arm_urdf)/config/urdf.rviz" />
+
+
+    <!-- Load joint controller configurations from YAML file to parameter server -->
+    <rosparam file="$(find sampling_rover_with_arm_urdf)/config/teleop_controllers.yaml" command="load" ns="/"/>
+
+    <!-- Load the controllers with namespace -->
+    <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" 
+    args="joint_state_controller joint_1_position_controller joint_2_position_controller joint_3_position_controller joint_4_position_controller joint_5_position_controller joint_ree_position_controller joint_lee_position_controller --timeout 500" />
+
+    <!-- Start the joint state publisher -->
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+
+    <node pkg="sampling_rover_with_arm_urdf" type="joint_translator.py" name="joint_command_splitter" output="screen"/>
+
+</launch>

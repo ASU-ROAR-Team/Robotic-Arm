@@ -21,9 +21,14 @@ catkin_package(
 	std_msgs
 )
 
+catkin_install_python(PROGRAMS scripts/joint_translator.py
+    DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
+
+
 find_package(roslaunch)
 
-foreach(dir config launch meshes urdf)
+foreach(dir config launch meshes urdf scripts)
 	install(DIRECTORY ${dir}/
 		DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/${dir})
 endforeach(dir)
