@@ -733,8 +733,8 @@
   </link>
       
   <joint name="camera_joint1" type="fixed">
-    <origin xyz="0.02 0.1 -0.1" rpy="-3.1412 0 -1.57079632679" /> 
-    <parent link="Left_ee" />
+    <origin xyz="0.12 0.0 -0.3" rpy="-3.1412 -1.57079632679 0" /> 
+    <parent link="link_5" />
     <child link="camera_link1" />
   </joint>
 
