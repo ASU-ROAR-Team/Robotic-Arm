@@ -5,9 +5,9 @@
 <robot
   name="full_sampling_urdf">
   <link name="world"/>
-  <joint name="base_joint" type="fixed">
+  <joint name="base_rover" type="fixed">
       <parent link="world"/>
-      <child link="base_link"/>
+      <child link="rover"/>
       <origin rpy="0 0 0" xyz="0.0 0.0 0.00001"/>
   </joint>
   <link
