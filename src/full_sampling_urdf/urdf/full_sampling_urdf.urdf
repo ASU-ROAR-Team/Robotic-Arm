@@ -674,6 +674,10 @@
       <selfCollide>true</selfCollide>
   </gazebo>
 
+  <gazebo reference="link_6">
+      <selfCollide>true</selfCollide>
+  </gazebo>
+
   <gazebo reference="Right_ee">
       <selfCollide>true</selfCollide>
   </gazebo>
@@ -686,7 +690,7 @@
     <plugin name="gazebo_grasp_fix" filename="libgazebo_grasp_fix.so">
       <arm>
         <arm_name>/</arm_name>
-        <palm_link>link_5</palm_link>
+        <palm_link>link_6</palm_link>
         <gripper_link>Right_ee</gripper_link>
         <gripper_link>Left_ee</gripper_link>
       </arm>
