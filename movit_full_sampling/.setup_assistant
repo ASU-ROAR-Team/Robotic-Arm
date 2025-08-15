@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: full_sampling_urdf
+    relative_path: urdf/full_sampling_urdf.urdf
+    xacro_args: ""
+  SRDF:
+    relative_path: config/full_sampling_urdf.srdf
+  CONFIG:
+    author_name: Youssef Elgharably
+    author_email: youssefelgharablyyy@gmail.com
+    generated_timestamp: 1755280408
