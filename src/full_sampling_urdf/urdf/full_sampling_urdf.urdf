@@ -212,10 +212,10 @@
     <child
       link="link_2" />
     <axis
-      xyz="0.035393 0 0.99937" />
+      xyz="-0.035393 0 -0.99937" />
     <limit
-      lower="-4.7124"
-      upper="0"
+      lower="0"
+      upper="4.71"
       effort="100"
       velocity="2" />
   </joint>
