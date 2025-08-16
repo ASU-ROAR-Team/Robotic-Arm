@@ -32,7 +32,7 @@ def move_arm_to_sequential_xyz():
 
     # --- Set the end-effector link for planning ---
     # This is crucial: it tells MoveIt which link's XYZ position to control
-    eef_link = "link_5"
+    eef_link = "link_6" 
     move_group_arm.set_end_effector_link(eef_link)
     rospy.loginfo("Using End Effector Link for planning: %s", move_group_arm.get_end_effector_link())
 
