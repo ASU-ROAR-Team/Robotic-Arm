@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<sdf version="1.6">
+  <model name="rock3"> <pose>0 0 0 0 0 0</pose> <link name="link">
+      <inertial>
+        <mass>0.001</mass>
+        <inertia ixx="0.000833" ixy="0" ixz="0" iyy="0.000833" iyz="0" izz="0.000833"/>
+      </inertial>
+
+      <collision name="collision">
+        <geometry>
+          <mesh>
+            <uri>model://rock3/meshes/rock3.stl</uri> 
+            <scale>0.004 0.004 0.004</scale>
+          </mesh>
+        </geometry>
+      </collision>
+
+      <visual name="visual">
+        <geometry>
+          <mesh>
+            <uri>model://rock3/meshes/rock3.stl</uri> 
+            <scale>0.004 0.004 0.004</scale>
+          </mesh>
+        </geometry>
+        <material>
+          <ambient>0.3 0.3 0.3 1</ambient>
+          <diffuse>0.5 0.5 0.5 1</diffuse>
+          <specular>0.01 0.01 0.01 1</specular>
+          <emissive>0 0 0 0</emissive>
+        </material>
+      </visual>
+
+    </link>
+  </model>
+</sdf>
