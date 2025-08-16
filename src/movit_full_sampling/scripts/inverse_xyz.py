@@ -129,12 +129,12 @@ def move_arm_to_sequential_xyz():
                 rospy.loginfo("Successfully executed trajectory to Target %d.", i+1)
                 final_pose = move_group_arm.get_current_pose().pose
                 rospy.loginfo("Final end-effector pose (position and ACHIEVED orientation):\n%s", final_pose)
-                rospy.sleep(1.0)
+                rospy.sleep(5.0)
             else:
                 rospy.logwarn("Trajectory execution failed for Target %d. This might be due to not reaching tolerance.", i+1)
                 final_pose = move_group_arm.get_current_pose().pose
                 rospy.loginfo("Final approximated end-effector pose:\n%s", final_pose)
-                rospy.sleep(1.0)
+                rospy.sleep(5.0)
             
             # Clear target after each move to ensure planner re-evaluates next goal fresh
             move_group_arm.stop()
