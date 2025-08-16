@@ -623,6 +623,17 @@
         </actuator>
   </transmission>
 
+  <transmission name="link_6_trans">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="joint_6">
+              <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface> 
+        </joint>
+        <actuator name="link_6_motor">
+              <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface> 
+              <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+  </transmission>
+
   <transmission name="Right_ee_trans">
         <type>transmission_interface/SimpleTransmission</type>
         <joint name="joint_ree">
