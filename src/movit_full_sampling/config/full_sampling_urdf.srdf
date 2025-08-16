@@ -15,6 +15,7 @@
         <joint name="joint_3"/>
         <joint name="joint_4"/>
         <joint name="joint_5"/>
+        <joint name="joint_6"/>
     </group>
     <group name="EE_group">
         <joint name="joint_lee"/>
@@ -27,6 +28,7 @@
         <joint name="joint_3" value="0"/>
         <joint name="joint_4" value="0"/>
         <joint name="joint_5" value="0"/>
+        <joint name="joint_6" value="0"/>
     </group_state>
     <group_state name="pre_pick" group="Arm_group">
         <joint name="joint_1" value="0.2885"/>
@@ -34,6 +36,7 @@
         <joint name="joint_3" value="2.0537"/>
         <joint name="joint_4" value="3.1061"/>
         <joint name="joint_5" value="-0.3055"/>
+        <joint name="joint_6" value="0"/>
     </group_state>
     <group_state name="rock_pick_pose" group="Arm_group">
         <joint name="joint_1" value="0.7977"/>
@@ -41,6 +44,7 @@
         <joint name="joint_3" value="4.7524"/>
         <joint name="joint_4" value="0.1528"/>
         <joint name="joint_5" value="2.4271"/>
+        <joint name="joint_6" value="0"/>
     </group_state>
     <group_state name="pick_rock" group="Arm_group">
         <joint name="joint_1" value="0.2546"/>
@@ -48,6 +52,7 @@
         <joint name="joint_3" value="1.6294"/>
         <joint name="joint_4" value="3.14"/>
         <joint name="joint_5" value="-0.3055"/>
+        <joint name="joint_6" value="0"/>
     </group_state>
     <group_state name="place_rock" group="Arm_group">
         <joint name="joint_1" value="-1.8501"/>
@@ -55,6 +60,7 @@
         <joint name="joint_3" value="3.1739"/>
         <joint name="joint_4" value="3.14"/>
         <joint name="joint_5" value="-0.3055"/>
+        <joint name="joint_6" value="0"/>
     </group_state>
     <group_state name="ee_close" group="EE_group">
         <joint name="joint_lee" value="0"/>
@@ -65,7 +71,7 @@
         <joint name="joint_ree" value="0.4"/>
     </group_state>
     <!--END EFFECTOR: Purpose: Represent information about an end effector.-->
-    <end_effector name="gripper" parent_link="link_6" group="EE_group"/>
+    <end_effector name="gripper" parent_link="link_6" group="Arm_group" parent_group="Arm_group"/>
     <!--DISABLE COLLISIONS: By default it is assumed that any link of the robot could potentially come into collision with any other link in the robot. This tag disables collision checking between a specified pair of links. -->
     <disable_collisions link1="Left_ee" link2="Right_ee" reason="Never"/>
     <disable_collisions link1="Left_ee" link2="link_3" reason="Never"/>
