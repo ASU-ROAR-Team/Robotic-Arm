@@ -1,5 +1,0 @@
-movit_new_arm
-/home/gharably/new_rover_arm_ws/devel/.private/movit_new_arm/cmake.lock /home/gharably/new_rover_arm_ws/devel/./cmake.lock
-/home/gharably/new_rover_arm_ws/devel/.private/movit_new_arm/share/movit_new_arm/cmake/movit_new_armConfig.cmake /home/gharably/new_rover_arm_ws/devel/share/movit_new_arm/cmake/movit_new_armConfig.cmake
-/home/gharably/new_rover_arm_ws/devel/.private/movit_new_arm/share/movit_new_arm/cmake/movit_new_armConfig-version.cmake /home/gharably/new_rover_arm_ws/devel/share/movit_new_arm/cmake/movit_new_armConfig-version.cmake
-/home/gharably/new_rover_arm_ws/devel/.private/movit_new_arm/lib/pkgconfig/movit_new_arm.pc /home/gharably/new_rover_arm_ws/devel/lib/pkgconfig/movit_new_arm.pc
