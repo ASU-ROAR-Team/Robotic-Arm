@@ -435,7 +435,7 @@
   </link>
   <joint
     name="joint_6"
-    type="fixed">
+    type="revolute">
     <origin
       xyz="0 -0.050661 0.25285"
       rpy="0 0 -0.010445" />
@@ -444,7 +444,12 @@
     <child
       link="link_6" />
     <axis
-      xyz="0 0 0" />
+      xyz="0 0 -1" />
+    <limit
+      lower="0"
+      upper="0"
+      effort="10"
+      velocity="0" />
   </joint>
   <link
     name="Right_ee">
