@@ -1,0 +1,41 @@
+<launch>
+
+    <!--
+    This launch file is designed to run the MoveIt! motion planning
+    stack with your custom Python controller, `real_node.py`,
+    for a real robot. It specifically excludes all Gazebo-related
+    components.
+    -->
+
+    <!-- 1. Load the robot model (URDF) parameter onto the parameter server.
+    This is essential for MoveIt, RViz, and the robot state publisher. -->
+    <param name="robot_description" textfile="$(find sampling_rover_with_arm_urdf)/urdf/sampling_rover_with_arm_urdf.urdf"/>
+
+    <!-- 2. Static TF publishers for fixed frames.
+    These are still necessary to provide the transform tree for MoveIt's planning. -->
+    <node name="tf_rover_to_base_link" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 rover base_link 40" />
+    <node name="tf_footprint_base" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 base_link base_footprint 40" />
+    
+    <!-- 3. Launch the MoveIt! Motion Planning Node.
+    This node is the 'brain' that performs planning and sends goals to your controller. -->
+    <include file = "$(find movit_sampling_rover_arm)/launch/move_group.launch" />
+
+    <!-- 6. Launch your custom controller node, `real_node.py`.
+    This is the heart of your real-world system. It provides the action servers
+    that MoveIt talks to and interfaces with your hardware. -->
+    <!-- <node name="real_controller_node" pkg="movit_sampling_rover_arm" type="real_node.py" output="screen" /> -->
+    
+    <!-- 7. Robot State Publisher for TF of each joint.
+    This node listens to the /joint_states topic (published by your custom node)
+    and publishes the transform frames for each link. This is vital for RViz
+    visualization and MoveIt's internal state. -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen"/>
+
+    <!-- 8. Launch RViz to visualize the robot and the planning scene.
+    This is highly recommended to monitor the state of your system. -->
+    <arg name="use_rviz" default="true" />
+    <include file="$(find movit_sampling_rover_arm)/launch/moveit_rviz.launch" if="$(arg use_rviz)">
+        <arg name="rviz_config" value="$(find movit_sampling_rover_arm)/launch/moveit.rviz"/>
+    </include>
+
+</launch>

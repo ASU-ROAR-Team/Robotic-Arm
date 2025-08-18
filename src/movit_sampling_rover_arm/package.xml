@@ -3,10 +3,10 @@
   <name>movit_sampling_rover_arm</name>
   <version>0.3.0</version>
   <description>
-     An automatically generated package with all the configuration and launch files for using the sampling_rover_with_arm_urdf with the MoveIt Motion Planning Framework
+     An automatically generated package with all the configuration and launch files for using the rover_arm_new_urdf with the MoveIt Motion Planning Framework
   </description>
-  <author email="youssefelgharablyyy@gmail.com">Youssef Elgharably</author>
-  <maintainer email="youssefelgharablyyy@gmail.com">Youssef Elgharably</maintainer>
+  <author email="youssefelgharablyyy@gmail.com">Gharably</author>
+  <maintainer email="youssefelgharablyyy@gmail.com">Gharably</maintainer>
 
   <license>BSD</license>
 

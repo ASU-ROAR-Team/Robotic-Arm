@@ -19,8 +19,10 @@
 
   <!-- Load default settings for kinematics; these settings are overridden by settings in a node's namespace -->
   <group ns="$(arg robot_description)_kinematics">
-    <rosparam command="load" file="$(find movit_sampling_rover_arm)/config/kinematics.yaml"/>
-
+    <!-- uncomment to use kdl kinematics file -->
+    <!-- <rosparam command="load" file="$(find movit_sampling_rover_arm)/config/kinematics.yaml"/>  -->
+    <!-- uncomment to use trac kinematics file -->
+    <rosparam command="load" file="$(find movit_sampling_rover_arm)/config/Trac_kinematics.yaml"/>   
   </group>
 
 </launch>

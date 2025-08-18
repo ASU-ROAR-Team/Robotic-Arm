@@ -10,7 +10,7 @@ for sampling_rover_with_arm_urdf robot</p>
   <maintainer email="TODO@email.com" />
   <license>BSD</license>
   <buildtool_depend>catkin</buildtool_depend>
-    <build_depend>message_generation</build_depend>
+  <build_depend>message_generation</build_depend>
   <build_depend>roscpp</build_depend>
   <build_depend>rospy</build_depend>
   <build_depend>std_msgs</build_depend>

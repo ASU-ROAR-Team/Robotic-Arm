@@ -7,8 +7,7 @@
 ROS_DISTRO="noetic"
 
 # Path to the directory that DIRECTLY CONTAINS your rock1, rock2, rock3 folders.
-# This is /home/gharably/new_rover_arm_ws/src/my_gazebo_models/sampling_rocks
-CUSTOM_MODELS_DIR="/home/ann/robotic_arm_ws/src/my_gazebo_models/sampling_rocks"
+CUSTOM_MODELS_DIR="/home/gharably/new_rover_arm_ws/src/my_gazebo_models/sampling_rocks"
 
 # Your ROS package name that contains the launch file
 YOUR_ROS_PACKAGE_NAME="movit_sampling_rover_arm"
@@ -22,7 +21,7 @@ source /opt/ros/$ROS_DISTRO/setup.bash
 
 # Source your workspace setup (adjust if your workspace path or type is different)
 # For catkin workspaces:
-source /home/ann/robotic_arm_ws/devel/setup.bash
+source /home/gharably/new_rover_arm_ws/devel/setup.bash
 
 
 # --- Set GAZEBO_MODEL_PATH ---
