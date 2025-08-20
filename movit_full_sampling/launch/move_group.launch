@@ -37,48 +37,90 @@
                 " />
   -->
 
-  <arg name="load_robot_description" default="false" />
   <!-- load URDF, SRDF and joint_limits configuration -->
-  <include file="$(dirname)/planning_context.launch">
-    <arg name="load_robot_description" value="$(arg load_robot_description)" />
-  </include>
+  <!--planning_context.launch-->
+  <!-- By default we do not overwrite the URDF. Change the following to true to change the default behavior -->
+  <arg name="load_robot_description" default="false"/>
+  <!-- The name of the parameter under which the URDF is loaded -->
+  <arg name="robot_description" default="robot_description"/>
+  <!-- Load universal robot description format (URDF) -->
+  <param if="$(arg load_robot_description)" name="$(arg robot_description)" textfile="$(find movit_full_sampling)/urdf/full_sampling_urdf.urdf"/>
+  <!-- The semantic description that corresponds to the URDF -->
+  <param name="$(arg robot_description)_semantic" textfile="$(find movit_full_sampling)/config/full_sampling_urdf.srdf" />
+  <!-- Load updated joint limits (override information from URDF) -->
+  <group ns="$(arg robot_description)_planning">
+    <rosparam command="load" file="$(find movit_full_sampling)/config/joint_limits.yaml"/>
+  </group>
+  <!-- Load default settings for kinematics; these settings are overridden by settings in a node's namespace -->
+  <group ns="$(arg robot_description)_kinematics">
+    <rosparam command="load" file="$(find movit_full_sampling)/config/kinematics.yaml"/>
+  </group>
+
 
   <!-- Planning Pipelines -->
+  <!--Ompl_planning_pipeline.launch.xml-->
   <group ns="move_group/planning_pipelines">
+    <group ns="ompl">
+        <!-- The request adapters (plugins) used when planning with OMPL. ORDER MATTERS! -->
+        <arg name="planning_adapters"
+             default="default_planner_request_adapters/LimitMaxCartesianLinkSpeed
+                      default_planner_request_adapters/AddTimeParameterization
+                      default_planner_request_adapters/ResolveConstraintFrames
+                      default_planner_request_adapters/FixWorkspaceBounds
+                      default_planner_request_adapters/FixStartStateBounds
+                      default_planner_request_adapters/FixStartStateCollision
+                      default_planner_request_adapters/FixStartStatePathConstraints"
+                      />
 
-    <!-- OMPL -->
-    <include file="$(dirname)/planning_pipeline.launch.xml">
-      <arg name="pipeline" value="ompl" />
-    </include>
+        <arg name="start_state_max_bounds_error" default="0.1" />
+        <arg name="jiggle_fraction" default="0.05" />
 
-    <!-- CHOMP -->
-    <include file="$(dirname)/planning_pipeline.launch.xml">
-      <arg name="pipeline" value="chomp" />
-    </include>
+        <param name="planning_plugin" value="ompl_interface/OMPLPlanner" />
+        <param name="request_adapters" value="$(arg planning_adapters)" />
+        <param name="start_state_max_bounds_error" value="$(arg start_state_max_bounds_error)" />
+        <param name="jiggle_fraction" value="$(arg jiggle_fraction)" />
 
-    <!-- Pilz Industrial Motion -->
-    <include file="$(dirname)/planning_pipeline.launch.xml">
-      <arg name="pipeline" value="pilz_industrial_motion_planner" />
-    </include>
-
-    <!-- Support custom planning pipeline -->
-    <include if="$(eval arg('pipeline') not in ['ompl', 'chomp', 'pilz_industrial_motion_planner'])"
-             file="$(dirname)/planning_pipeline.launch.xml">
-      <arg name="pipeline" value="$(arg pipeline)" />
-    </include>
+        <rosparam command="load" file="$(find movit_full_sampling)/config/ompl_planning.yaml"/>
+    </group>
   </group>
 
   <!-- Trajectory Execution Functionality -->
-  <include ns="move_group" file="$(dirname)/trajectory_execution.launch.xml" if="$(arg allow_trajectory_execution)">
-    <arg name="moveit_manage_controllers" value="true" />
-    <arg name="moveit_controller_manager" value="$(arg moveit_controller_manager)" />
-    <arg name="fake_execution_type" value="$(arg fake_execution_type)" />
-  </include>
+  <!--trajectory_execution.launch.xml-->
+  <group ns="move_group" if="$(arg allow_trajectory_execution)">
+  <param name="moveit_manage_controllers" value="true"/>
+  <!-- When determining the expected duration of a trajectory, this multiplicative factor is applied to get the allowed duration of execution -->
+  <param name="trajectory_execution/allowed_execution_duration_scaling" value="1.2"/> <!-- default 1.2 -->
+  <!-- Allow more than the expected execution time before triggering a trajectory cancel (applied after scaling) -->
+  <param name="trajectory_execution/allowed_goal_duration_margin" value="0.5"/> <!-- default 0.5 -->
+  <!-- Allowed joint-value tolerance for validation that trajectory's first point matches current robot state -->
+  <param name="trajectory_execution/allowed_start_tolerance" value="0.01"/> <!-- default 0.01 -->
+  <!-- We use pass_all_args=true here to pass fake_execution_type, which is required by fake controllers, but not by real-robot controllers.
+       As real-robot controller_manager.launch files shouldn't be required to define this argument, we use the trick of passing all args. -->
+  
+  <!--simple_moveit-controller_manager.launch.xml-->
+  <!-- Define the MoveIt controller manager plugin to use for trajectory execution -->
+  <param name="moveit_controller_manager" value="moveit_simple_controller_manager/MoveItSimpleControllerManager" />
+  <!-- Load controller list to the parameter server -->
+  <rosparam file="$(find movit_full_sampling)/config/new_ros_controllers.yaml" />
+  </group>
 
   <!-- Sensors Functionality -->
-  <include ns="move_group" file="$(dirname)/sensor_manager.launch.xml" if="$(arg allow_trajectory_execution)">
-    <arg name="moveit_sensor_manager" value="full_sampling_urdf" />
-  </include>
+  <!--sensor_manager.launch.xml-->
+  <group ns="move_group" if="$(arg allow_trajectory_execution)">
+  <!-- This file makes it easy to include the settings for sensor managers -->
+  <!-- Params for 3D sensors config -->
+  <rosparam command="load" file="$(find movit_full_sampling)/config/sensors_3d.yaml" />
+  <!-- Params for the octomap monitor -->
+  <!--  <param name="octomap_frame" type="string" value="some frame in which the robot moves" /> -->
+  <param name="octomap_resolution" type="double" value="0.025" />
+  <param name="max_range" type="double" value="5.0" />
+
+  <!--full_sampling_urdf_moveit_sensor_manager.launch.xml-->
+
+  <!-- The nested include for "$(arg moveit_sensor_manager)_moveit_sensor_manager.launch.xml" was empty,
+         so nothing is added here. If you need to specify a sensor manager plugin later,you would add the 
+         <param name="moveit_sensor_manager" ... /> line right here. -->
+  </group>
 
   <!-- Start the actual move_group node/action server -->
   <node name="move_group" launch-prefix="$(arg launch_prefix)" pkg="moveit_ros_move_group" type="move_group" respawn="false" output="screen" args="$(arg command_args)">
