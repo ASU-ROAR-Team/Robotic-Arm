@@ -161,7 +161,7 @@
       lower="-3.142"
       upper="3.142"
       effort="100"
-      velocity="2" />
+      velocity="1" />
   </joint>
   <link
     name="link_2">
@@ -219,7 +219,7 @@
       lower="-3.142"
       upper="3.142"
       effort="100"
-      velocity="2" />
+      velocity="1" />
   </joint>
   <link
     name="link_3">
@@ -277,7 +277,7 @@
       lower="-3.142"
       upper="3.142"
       effort="50"
-      velocity="4" />
+      velocity="1" />
   </joint>
   <link
     name="link_4">
@@ -335,7 +335,7 @@
       lower="-3.142"
       upper="3.142"
       effort="50"
-      velocity="4" />
+      velocity="1" />
   </joint>
   <link
     name="link_5">
@@ -393,7 +393,7 @@
       lower="-3.142"
       upper="3.142"
       effort="50"
-      velocity="4" />
+      velocity="1" />
   </joint>
   <link
     name="Right_ee">
@@ -451,7 +451,7 @@
       lower="0"
       upper="0.8"
       effort="15"
-      velocity="6" />
+      velocity="1" />
   </joint>
   <link
     name="Left_ee">
@@ -509,7 +509,7 @@
       lower="-0.8"
       upper="0"
       effort="15"
-      velocity="6" />
+      velocity="1" />
   </joint>
   
   <transmission name="link_1_trans">

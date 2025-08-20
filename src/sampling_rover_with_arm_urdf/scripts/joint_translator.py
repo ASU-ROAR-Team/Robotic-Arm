@@ -2,6 +2,7 @@
 
 import rospy
 from std_msgs.msg import Float64, Float64MultiArray
+from geometry_msgs.msg import PoseStamped
 
 class JointCommandSplitter:
     """
@@ -35,10 +36,10 @@ class JointCommandSplitter:
             rospy.loginfo("Created publisher for topic: %s", topic_name)
 
         # Create a subscriber to listen for the Float64MultiArray messages
-        rospy.Subscriber("/arm_joint_target_angles", Float64MultiArray, self.callback)
-        rospy.loginfo("Subscribed to topic: /arm_joint_target_angles")
+        rospy.Subscriber("/robot/joint_command", PoseStamped, self.callback)
+        rospy.loginfo("Subscribed to topic: /robot/joint_command")
 
-    def callback(self, msg):
+    def callback(self, msgInc:PoseStamped):
         """
         Callback function that processes the incoming Float64MultiArray message.
         It splits the array and publishes each element to the corresponding joint topic.
@@ -53,23 +54,46 @@ class JointCommandSplitter:
         #     )
         #     return
 
-        # Iterate through the received data and the publishers
-        for i in range(len(self.publishers)- 2) :
-            # Create a new Float64 message with the data from the array
-            joint_value = Float64()
-            joint_value.data = msg.data[i]
 
-            # Publish the new message to the corresponding topic
-            self.publishers[i].publish(joint_value)
+        # # Iterate through the received data and the publishers
+        # for i in range(len(self.publishers)- 2) :
+        #     # Create a new Float64 message with the data from the array
+        #     joint_value = Float64()
+        #     joint_value.data = msg.data[i]/180.0 * 3.14159
+
+        #     # Publish the new message to the corresponding topic
+        #     self.publishers[i].publish(joint_value)
             # rospy.loginfo("Published data[%d]: %.2f to topic %s", i, joint_value.data, self.output_topics[i])
+        # rospy.loginfo("WENT HEREE")
+        msg = Float64()
+        msg.data = msgInc.pose.position.x/180.0 * 3.14159
+        self.publishers[0].publish(msg)
+        msg = Float64()
+        msg.data = msgInc.pose.position.y/180.0 * 3.14159
+        self.publishers[1].publish(msg)
+        msg = Float64()
+        msg.data = msgInc.pose.position.z/180.0 * 3.14159
+        self.publishers[2].publish(msg)
+        msg = Float64()
+        msg.data = msgInc.pose.orientation.x/180.0 * 3.14159
+        self.publishers[3].publish(msg)
+        msg = Float64()
+        msg.data = msgInc.pose.orientation.y/180.0 * 3.14159
+        self.publishers[4].publish(msg)
+        msg = Float64()
+        msg.data = msgInc.pose.orientation.z
+        self.publishers[5].publish(msg)
+        msg = Float64()
+        msg.data = -msgInc.pose.orientation.z
+        self.publishers[6].publish(msg)
+
+        # joint_value = Float64()
+        # joint_value.data = msg.data[5]
+        # self.publishers[5].publish(joint_value)
         
-        joint_value = Float64()
-        joint_value.data = msg.data[5]
-        self.publishers[5].publish(joint_value)
-        
-        joint_value = Float64()
-        joint_value.data = -msg.data[5]
-        self.publishers[6].publish(joint_value)
+        # joint_value = Float64()
+        # joint_value.data = -msg.data[5]
+        # self.publishers[6].publish(joint_value)
 
 def main():
     """

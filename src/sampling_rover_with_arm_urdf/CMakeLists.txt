@@ -11,6 +11,7 @@ find_package(catkin REQUIRED COMPONENTS
 	urdf
 	xacro
 	message_generation
+	sampling_rover_with_arm_urdf
 )
 
 catkin_package(
@@ -25,6 +26,9 @@ catkin_install_python(PROGRAMS scripts/joint_translator.py
     DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
+catkin_install_python(PROGRAMS scripts/IKSolver.py
+    DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
 
 find_package(roslaunch)
 
