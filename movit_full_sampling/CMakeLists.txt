@@ -22,13 +22,13 @@ catkin_package(
 	std_msgs
 )
 
-# catkin_install_python(PROGRAMS scripts/joint_translator.py
-#     DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-# )
+catkin_install_python(PROGRAMS scripts/joint_translator.py
+    DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
 
-#catkin_install_python(PROGRAMS scripts/IKSolver.py
-#    DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
-#)
+catkin_install_python(PROGRAMS scripts/IKSolver.py
+   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+)
 
 find_package(roslaunch)
 
