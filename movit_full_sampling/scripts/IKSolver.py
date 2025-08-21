@@ -36,7 +36,7 @@ class IKController:
         
         # Define the name of the end-effector link and the group to use for IK.
         self.group_name = 'Arm_group'
-        self.end_effector_link = 'Right_ee'
+        self.end_effector_link = 'link_6'
         self.base_link = 'rover' # or 'base_link' depending on your URDF
 
         # 5. Subscriber for the desired end-effector pose
@@ -71,7 +71,7 @@ class IKController:
 
         ik_request_msg.ik_request.pose_stamped = pose_msg
         ik_request_msg.ik_request.timeout = rospy.Duration(0.1)
-        ik_request_msg.ik_request.avoid_collisions = False
+        ik_request_msg.ik_request.avoid_collisions = True
         
         # Set the link name for which we are calculating IK
         ik_request_msg.ik_request.ik_link_name = self.end_effector_link
@@ -86,8 +86,7 @@ class IKController:
                 return ik_response.solution.joint_state.position, returnMsg
             else:
                 rospy.logwarn("IK service failed with error code: %s", ik_response.error_code.val)
-                returnMsg = "IK service failed"
-                return None, returnMsg
+                return None
         except rospy.ServiceException as e:
             rospy.logerr("Service call failed: %s", e)
             return None, "Service call failed"
