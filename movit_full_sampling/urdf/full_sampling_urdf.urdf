@@ -719,5 +719,158 @@
       <contact_topic>__default_topic__</contact_topic>
     </plugin> 
   </gazebo>
+     <link name="camera_link2">
+    <inertial>
+      <mass value="0.001"/>
+      <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.01 0.01 0.01"/>
+      </geometry>
+      <material name="camera_material">
+        <color rgba="0.0 0.0 1.0 1.0"/>
+      </material>
+    </visual>
+  </link>
+
+  <joint name="camera_depth_optical_joint" type="fixed">
+    <origin xyz="0 0 0" rpy="-1.57079632679 0 -1.57079632679" />
+    <parent link="camera_link2" />
+    <child link="camera_depth_optical_frame" />
+  </joint>
+
+  <joint name="camera_joint2" type="fixed">
+    <origin xyz="0.375 0 0.4" rpy="0 0 0" /> 
+    <parent link="rover" />
+    <child link="camera_link2" />
+  </joint>
+
+  <link name="camera_depth_optical_frame">
+    <inertial>
+      <mass value="0.001"/>
+      <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+    </inertial>
+  </link>      
+
+  <gazebo reference="camera_link2">
+    <sensor type="depth" name="camera2">
+      <pose>0 0 0 0 0 0</pose>
+      <visualize>true</visualize>
+      <update_rate>15.0</update_rate>
+      <camera name="camera2">
+        <horizontal_fov>1.7633</horizontal_fov>
+        <image>
+          <width>1280</width>
+          <height>720</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.02</near>
+          <far>300</far>
+        </clip>
+        <noise>
+          <type>gaussian</type>
+          <mean>0.0</mean>
+          <stddev>0.007</stddev>
+        </noise>
+      </camera>
+      <plugin name="camera_plugin2" filename="libgazebo_ros_depth_camera.so">
+        <cameraName>camera2</cameraName>
+        <always_on>true</always_on>
+        <update_rate>0.0</update_rate>
+        <frameName>camera_depth_optical_frame2</frameName>
+        <pointCloudCutoff>0.3</pointCloudCutoff>
+        <pointCloudCutoffMax>20</pointCloudCutoffMax>
+        <imageTopicName>/camera/color/image_raw2</imageTopicName>
+        <cameraInfoTopicName>/camera/color/camera_info2</cameraInfoTopicName>
+        <depthImageTopicName>/camera/depth/image_raw2</depthImageTopicName>
+        <depthImageCameraInfoTopicName>/camera/depth/camera_info2</depthImageCameraInfoTopicName>
+        <pointCloudTopicName>/camera/depth/points2</pointCloudTopicName>
+        <distortionK1>-0.040993299</distortionK1>
+        <distortionK2>0.009593590</distortionK2>
+        <distortionT1>-0.004429849</distortionT1>
+        <distortionT2>0.000192024</distortionT2>
+        <distortionK3>-0.000320880</distortionK3>
+        <CxPrime>659.3049926757812</CxPrime>
+        <Cx>659.3049926757812</Cx>
+        <Cy>371.39849853515625</Cy>
+        <hackBaseline>0.12</hackBaseline>
+      </plugin>
+    </sensor>
+  </gazebo>
+
+
+
+  <link name="camera_link1">
+    <inertial>
+      <mass value="0.001"/>
+      <inertia ixx="0.0001" ixy="0.0" ixz="0.0" iyy="0.0001" iyz="0.0" izz="0.0001"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.01 0.01 0.01"/>
+      </geometry>
+      <material name="camera_material">
+        <color rgba="0.0 0.0 1.0 1.0"/>
+      </material>
+    </visual>
+  </link>
+      
+  <joint name="camera_joint1" type="fixed">
+    <origin xyz="0 0.105 0.05" rpy="-1.57079632679 -1.57079632679 0" /> 
+    <parent link="link_5" />
+    <child link="camera_link1" />
+  </joint>
+
+
+  <gazebo reference="camera_link1">
+    <sensor type="depth" name="camera1">
+      <pose>0 0 0 0 0 0</pose>
+      <visualize>true</visualize>
+      <update_rate>15.0</update_rate>
+      <camera name="camera1">
+        <horizontal_fov>1.7633</horizontal_fov>
+        <image>
+          <width>1280</width>
+          <height>720</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.02</near>
+          <far>300</far>
+        </clip>
+        <noise>
+          <type>gaussian</type>
+          <mean>0.0</mean>
+          <stddev>0.007</stddev>
+        </noise>
+      </camera>
+      <plugin name="camera_plugin1" filename="libgazebo_ros_depth_camera.so">
+        <cameraName>camera1</cameraName>
+        <always_on>true</always_on>
+        <update_rate>0.0</update_rate>
+        <frameName>camera_depth_optical_frame1</frameName>
+        <pointCloudCutoff>0.3</pointCloudCutoff>
+        <pointCloudCutoffMax>20</pointCloudCutoffMax>
+        <imageTopicName>/camera/color/image_raw1</imageTopicName>
+        <cameraInfoTopicName>/camera/color/camera_info1</cameraInfoTopicName>
+        <depthImageTopicName>/camera/depth/image_raw1</depthImageTopicName>
+        <depthImageCameraInfoTopicName>/camera/depth/camera_info1</depthImageCameraInfoTopicName>
+        <pointCloudTopicName>/camera/depth/points1</pointCloudTopicName>
+        <distortionK1>-0.040993299</distortionK1>
+        <distortionK2>0.009593590</distortionK2>
+        <distortionT1>-0.004429849</distortionT1>
+        <distortionT2>0.000192024</distortionT2>
+        <distortionK3>-0.000320880</distortionK3>
+        <CxPrime>659.3049926757812</CxPrime>
+        <Cx>659.3049926757812</Cx>
+        <Cy>371.39849853515625</Cy>
+        <hackBaseline>0.12</hackBaseline>
+      </plugin>
+    </sensor>
+  </gazebo>
 
 </robot>
