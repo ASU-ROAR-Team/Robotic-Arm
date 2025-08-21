@@ -26,6 +26,8 @@
         iyz="-0.0022915"
         izz="0.14333" />
     </inertial>
+    
+    <!-- ORIGINAL VISUAL: This is the detailed mesh of your rover -->
     <visual>
       <origin
         xyz="0 0 0"
@@ -40,12 +42,27 @@
           rgba="0.79216 0.81961 0.93333 1" />
       </material>
     </visual>
-    <collision>
+
+    <!-- NEW VISUAL FOR COLLISION BOX: This will be visible in Gazebo/RViz -->
+    <visual>
       <origin
-        xyz="0 0 0.15"
+        xyz="-0.1 0 0.25"
         rpy="0 0 0" />
       <geometry>
-        <box size="0.6 0.4 0.3"/>
+        <box size="0.9 0.8 0.5"/>
+      </geometry>
+      <material name="red_transparent">
+          <color rgba="1 0 0 0.5"/>
+      </material>
+    </visual>
+    
+    <!-- COLLISION: This is the simplified box for physics calculations -->
+    <collision>
+      <origin
+        xyz="-0.1 0 0.25"
+        rpy="0 0 0" />
+      <geometry>
+        <box size="0.9 0.8 0.5"/>
       </geometry>
     </collision>
   </link>
