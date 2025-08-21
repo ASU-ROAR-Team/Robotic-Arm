@@ -42,11 +42,10 @@
     </visual>
     <collision>
       <origin
-        xyz="0 0 0"
+        xyz="0 0 0.15"
         rpy="0 0 0" />
       <geometry>
-        <mesh
-          filename="package://movit_full_sampling/meshes/rover.STL" />
+        <box size="0.6 0.4 0.3"/>
       </geometry>
     </collision>
   </link>
