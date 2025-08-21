@@ -43,18 +43,43 @@
       </material>
     </visual>
 
-    <!-- NEW VISUAL FOR COLLISION BOX: This will be visible in Gazebo/RViz -->
+    <!--
     <visual>
       <origin
-        xyz="-0.1 0 0.25"
+        xyz="-0.1 0 0.26"
         rpy="0 0 0" />
       <geometry>
-        <box size="0.9 0.8 0.5"/>
+        <box size="0.9 0.9 0.53"/>
       </geometry>
       <material name="red_transparent">
           <color rgba="1 0 0 0.5"/>
       </material>
     </visual>
+
+    <visual>
+      <origin
+        xyz="0.45 0.35 0.13"
+        rpy="0 0 0" />
+      <geometry>
+        <box size="0.3 0.25 0.24"/>
+      </geometry>
+      <material name="red_transparent">
+          <color rgba="1 0 0 0.5"/>
+      </material>
+    </visual>
+
+    <visual>
+      <origin
+        xyz="0.45 -0.35 0.13"
+        rpy="0 0 0" />
+      <geometry>
+        <box size="0.3 0.25 0.24"/>
+      </geometry>
+      <material name="red_transparent">
+          <color rgba="1 0 0 0.5"/>
+      </material>
+    </visual>
+    -->
     
     <!-- COLLISION: This is the simplified box for physics calculations -->
     <collision>
@@ -63,6 +88,24 @@
         rpy="0 0 0" />
       <geometry>
         <box size="0.9 0.8 0.5"/>
+      </geometry>
+    </collision>
+
+    <collision>
+      <origin
+        xyz="0.45 0.35 0.13"
+        rpy="0 0 0" />
+      <geometry>
+        <box size="0.3 0.25 0.24"/>
+      </geometry>
+    </collision>
+
+    <collision>
+      <origin
+        xyz="0.45 -0.35 0.13"
+        rpy="0 0 0" />
+      <geometry>
+        <box size="0.3 0.25 0.24"/>
       </geometry>
     </collision>
   </link>
