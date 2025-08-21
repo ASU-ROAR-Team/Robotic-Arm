@@ -4,6 +4,12 @@
     file="$(find gazebo_ros)/launch/empty_world.launch" />
     
     <node
+    name="world_to_base_link"
+    pkg="tf"
+    type="static_transform_publisher"
+    args="0 0 0 0 0 0 world base_link 40" />
+  
+    <node
     name="tf_footprint_base"
     pkg="tf"
     type="static_transform_publisher"
@@ -33,7 +39,8 @@
     type="rviz"
     args="-d $(find movit_full_sampling)/config/urdf.rviz" />
 
-
+    <include file = "$(find movit_full_sampling)/launch/move_group.launch" />
+    
     <!-- Load joint controller configurations from YAML file to parameter server -->
     <rosparam file="$(find movit_full_sampling)/config/teleop_controllers.yaml" command="load" ns="/"/>
 
