@@ -1,0 +1,36 @@
+# This is the final, optimized configuration for using the BioIK plugin
+# with your 5-DOF arm.
+
+Arm_group:
+  # Step 1: Specify the BioIK plugin as the solver.
+  kinematics_solver: bio_ik/BioIKKinematicsPlugin
+
+  # --- BioIK Goal Weights ---
+  # These weights tell the solver what is most important. Higher is more important.
+
+  # We give the position goal the highest possible weight. This makes it the
+  # solver's top priority.
+  position_weight: 1.0
+
+  # We give the orientation goal a lower weight. This tells the solver:
+  # "Try your best to achieve this orientation, but it's less important
+  # than getting the position right."
+  # This is the perfect way to handle the 5-DOF limitation.
+  orientation_weight: 0.2
+
+  # This is a secondary goal that encourages solutions with the smallest
+  # joint movement from the current state. It results in smoother, more
+  # predictable motions. Its weight is very low so it doesn't interfere
+  # with the main goals.
+  minimal_displacement_weight: 0.1
+
+  # --- General BioIK Parameters ---
+
+  # A timeout in seconds for the solver to find a solution.
+  timeout: 0.3
+
+  # A minimum "fitness" score (from 0 to 1) for a solution to be
+  # considered valid. This is a quality filter. A value of 0.99 means
+  # the solution must satisfy the weighted goals very well, preventing
+  # BioIK from returning a very poor "successful" solution.
+  solution_fitness_threshold: 0.8
