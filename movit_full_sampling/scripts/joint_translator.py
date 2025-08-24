@@ -52,6 +52,9 @@ class JointCommandSplitter:
         self.arm_control_pub = rospy.Publisher('/arm_control_values', ArmControl, queue_size=10)
         rospy.loginfo("Created publisher for topic: /arm_control_values")
 
+        self.arm_joint_values_pub = rospy.Publisher('arm_joint_values', Float64MultiArray, queue_size=10)
+        rospy.loginfo("Created publisher for topic: arm_joint_values")
+
         # Create a subscriber to listen for the Float64MultiArray messages
         rospy.Subscriber("/robot/joint_command", PoseStamped, self.joint_callback)
         rospy.loginfo("Subscribed to topic: /robot/joint_command")
@@ -107,6 +110,17 @@ class JointCommandSplitter:
         self.last_joint_rad['joint4'] = msg_in.pose.orientation.x / 180.0 * math.pi
         self.last_joint_rad['joint5'] = msg_in.pose.orientation.y / 180.0 * math.pi
         self.last_joint_rad['end_effector'] = msg_in.pose.orientation.z
+
+        joint_values_msg = Float64MultiArray()
+        joint_values_msg.data = [
+            self.last_joint_rad['joint1'],
+            self.last_joint_rad['joint2'],
+            self.last_joint_rad['joint3'],
+            self.last_joint_rad['joint4'],
+            self.last_joint_rad['joint5'],
+            self.last_joint_rad['end_effector']
+        ]
+        self.arm_joint_values_pub.publish(joint_values_msg)
 
         self.publishers[0].publish(Float64(self.last_joint_rad['joint1']))
         self.publishers[1].publish(Float64(self.last_joint_rad['joint2']))
