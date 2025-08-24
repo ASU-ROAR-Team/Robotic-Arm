@@ -11,6 +11,7 @@ find_package(catkin REQUIRED COMPONENTS
 	urdf
 	xacro
 	message_generation
+	roar_msgs
 	
 )
 
